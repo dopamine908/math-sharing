@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "dopamine908/math-sharing",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "math sharing.",
     "keywords": [
         "framework",
         "laravel"
