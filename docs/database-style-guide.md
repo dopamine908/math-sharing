@@ -1,5 +1,7 @@
 # Database 命名
 
+可參考：https://www.sqlstyle.guide/zh-tw/
+
 ---
 ## Table 命名 (小寫底線，採用複數形式 )
 
