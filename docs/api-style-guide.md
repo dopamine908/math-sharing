@@ -1,7 +1,7 @@
 # Restful API Endpoint 命名
 
 --- 
-## Route Resource採用**複數**形式 
+## Route Resource採用複數形式 
 ```
 /api/questions
 ```
