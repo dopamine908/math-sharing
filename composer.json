@@ -47,6 +47,12 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "docker-compose-up": [
+            "cd laradock && docker-compose up -d nginx php-fpm redis mysql workspace"
+        ],
+        "php-artisan": [
+            "docker exec -it math-sharing_workspace_1 php artisan"
         ]
     },
     "extra": {
