@@ -2,7 +2,7 @@
 
 未說明部分可參考PSR12: https://www.php-fig.org/psr/psr-12/
 
---- 
+---
 ## Class / File 命名 (大寫駝峰)
 
 ```php
@@ -24,7 +24,7 @@ public function createPost($data)
 }
 ```
 
---- 
+---
 ## Argument 命名 (小寫駝峰)
 
 ```php
