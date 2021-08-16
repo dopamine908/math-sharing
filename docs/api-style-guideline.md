@@ -1,12 +1,12 @@
 # Restful API Endpoint 命名
 
---- 
-## Route Resource採用複數形式 
+---
+## Route Resource採用複數形式
 ```
 /api/questions
 ```
 
----  
+---
 ## API Json格式
 
 1. data存放resource資料
@@ -56,6 +56,6 @@
 }
 ```
 
---- 
+---
 
 待討論：API文件的撰寫

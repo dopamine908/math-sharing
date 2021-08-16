@@ -1,13 +1,13 @@
 # 專案環境建置
 
 ---
-## Step0. 啟動Docker Service 
+## Step0. 啟動Docker Service
 
 ```
 點選Docker Desktop的圖示 (藍色底的貨櫃鯨魚)
 ```
 
-NOTE. 
+NOTE.
 - terminal的作法，待其他人使用補充
 
 ---
@@ -23,7 +23,7 @@ NOTE.
 3. php artisan key:generate
 
 ---
-## Step2. 
+## Step2.
 
 ```zsh
 > sh project_install.sh
@@ -54,7 +54,7 @@ NOTE.
 
 
 ---
-## Step4. 連接laradock的mysql 
+## Step4. 連接laradock的mysql
 
 ```
 Host : 127.0.0.1
@@ -83,7 +83,7 @@ REDIS_HOST=redis
 REDIS_PASSWORD=null
 ```
 
---- 
+---
 ## 重新啟動math-sharing
 
 先啟動Docker Service，然後執行以下指令
@@ -94,6 +94,6 @@ REDIS_PASSWORD=null
 > docker-compose up -d nginx php-fpm redis mysql workspace
 ```
 
---- 
+---
 
 
