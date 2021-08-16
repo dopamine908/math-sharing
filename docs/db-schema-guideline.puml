@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+class users << (T,#ADD1B2) >>{
+    id
+    --
+    email : string
+    --
+    password : string
+    --
+    name : string
+    --
+    created_at : timestamp
+    --
+    updated_at : timestamp
+}
+class posts << (T,#ADD1B2) >>{
+    id
+    --
+    users_id : int
+    --
+    content : string
+    --
+    created_at : timestamp
+    --
+    updated_at : timestamp
+}
+users::id “1” -- “*" posts::users_id
+@enduml
