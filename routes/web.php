@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// 渲染 latex 測試頁面
+Route::get('katex-test', function () {
+    return view('katex-test');
+});
