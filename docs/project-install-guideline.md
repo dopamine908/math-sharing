@@ -111,3 +111,13 @@ php artisan ide-helper:generate
 如果失敗可以嘗試重新 ```composer install``` 再下指令看看
 
 ---
+
+## Laravel debugbar
+
+為輔助開發 專案有安裝 [laravel debugbar](https://github.com/barryvdh/laravel-debugbar)
+
+可以下指令安裝啟用
+
+```
+composer install
+```
