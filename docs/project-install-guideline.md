@@ -96,4 +96,18 @@ REDIS_PASSWORD=null
 
 ---
 
+## Laravel ide helper
 
+為求 trace code 方邊 專案有安裝 [laravel ide helper](https://github.com/barryvdh/laravel-ide-helper)
+
+可以下指令
+
+```
+php artisan ide-helper:generate
+```
+
+產生 ```_ide_helper.php``` 以協助開發
+
+如果失敗可以嘗試重新 ```composer install``` 再下指令看看
+
+---

@@ -14,3 +14,4 @@ yarn-error.log
 /.idea
 /.vscode
 /laradock/
+/_ide_helper.php
