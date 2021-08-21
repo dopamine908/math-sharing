@@ -22,6 +22,7 @@
         <include>
             <directory suffix=".php">./app</directory>
         </include>
+        <!-- TODO: 目前/reports無法在Docker中生成，需修改php.ini (xdebug.mode=coverage) -->
         <report>
             <html outputDirectory="./reports/html-coverage" lowUpperBound="50" highLowerBound="90"/>
         </report>
