@@ -14,6 +14,10 @@ git clone https://github.com/Laradock/laradock.git
 rm -rf laradock/.git/
 echo "${green}[初始化專案...] 執行完畢${original}"
 
+echo "${green}[初始化專案...] 覆蓋 githook 需要使用的 pre-commit 設定檔${original}"
+cp pre-commit .git/hooks/pre-commit
+echo "${green}[初始化專案...] 執行完畢${original}"
+
 # 覆蓋 laradock 需要使用的設定檔
 echo "${green}[初始化專案...] 覆蓋 laradock 需要使用的設定檔${original}"
 cp laradock-setting/.env.example laradock/.env
