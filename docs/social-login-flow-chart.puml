@@ -1,0 +1,27 @@
+@startuml
+
+group Login
+    "Frontend" -> "Backend" : direct to /auth/{social_platform}/redirect
+    "Frontend" <- "Backend" : if {social_platform} illegal,\n redirect to home wirth url query ?error=wrong_social_platform
+
+    "Backend" -> "Third Party\n Social Platform" : redirect to third party login page
+    "Third Party\n Social Platform" -> Backend : [success] redirect to /auth/{social_platform}/callback
+
+    "Backend" -> "Frontend" : redirect to /auth/login_success?personal_onetime_access_token=
+
+    "Frontend" -> "Backend" : use 'personal_onetime_access_token' call api/user
+    "Backend" -> "Frontend" : [personal_onetime_access_token verify success]\n get JWT Bearer token
+    "Backend" -> "Frontend" : [personal_onetime_access_token verify fail]\n get some error json
+
+    "Frontend" -> "Backend" : use JWT Bearer token to get everything
+end
+
+group Logon
+    "Frontend" -> "Backend" :
+end
+
+group Token expired
+    "Frontend" -> "Backend" :
+end
+
+@enduml
