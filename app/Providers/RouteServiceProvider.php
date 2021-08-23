@@ -38,14 +38,14 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
+            // 註冊 Api Routes
+            $this->registerApiRoutes();
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
+            // 註冊社群登入 Routes
+            $this->registerAuthenticationRoute();
+
+            // 註冊 web Routes
+            $this->registerWebRoutes();
         });
     }
 
@@ -59,5 +59,27 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
+
+    private function registerApiRoutes(): void
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
+
+    private function registerWebRoutes(): void
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+    }
+
+    private function registerAuthenticationRoute()
+    {
+        Route::prefix('auth')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/authentication.php'));
     }
 }
