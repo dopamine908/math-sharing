@@ -53,3 +53,7 @@ echo "${green}[初始化專案...] php artisan key:generate${original}"
 docker exec -it math-sharing_workspace_1 php artisan key:generate
 echo "${green}[初始化專案...] key generate done${original}"
 
+# php artisan jwt:secret
+echo "${green}[初始化專案...] php artisan jwt:secret${original}"
+docker exec -it math-sharing_workspace_1 php artisan jwt:secret
+echo "${green}[初始化專案...] key generate done${original}"
