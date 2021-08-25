@@ -78,8 +78,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function registerAuthenticationRoute()
     {
-        Route::prefix('auth')
-            ->namespace($this->namespace)
+        Route::namespace($this->namespace)
             ->group(base_path('routes/authentication.php'));
     }
 }

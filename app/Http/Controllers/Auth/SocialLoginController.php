@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
@@ -16,37 +18,38 @@ class SocialLoginController extends Controller
         return Socialite::driver($socialPlatform)->redirect();
     }
 
-//    public function handleSocialPlatformCallback()
-//    {
-//        $socialiteUser = Socialite::driver('google')->user();
-//        dump($socialiteUser);
-//        $this->createUser($socialiteUser);
-//        dump(Auth::user());
-////        return redirect()->route('home');
-//    }
+    public function handleSocialPlatformCallback(string $socialPlatform)
+    {
+        $socialiteUser = Socialite::driver($socialPlatform)->user();
+        dump($socialiteUser);
 
-//    private function createUser(SocialiteUser $socialiteUser)
-//    {
-////        $user = new User();
-////        $user->name = $socialiteUser->getName();
-////        $user->email = $socialiteUser->getEmail();
-////        $user->avatar = $socialiteUser->getAvatar();
-////        $user->provider_id = $socialiteUser->getId();
-////        $user->platform = 'google';
-////        $user->save();
-////        Auth::login($user);
-//
-//        $user = User::where('email', '=', $socialiteUser->email)->first();
-//        if ( ! $user) {
-//            $user = new User();
-//            $user->name = $socialiteUser->getName();
-//            $user->email = $socialiteUser->getEmail();
-//            $user->avatar = $socialiteUser->getAvatar();
-//            $user->provider_id = $socialiteUser->getId();
-//            $user->platform = 'google';
-//            $user->save();
-//        }
-//
-//        Auth::login($user);
-//    }
+        $user = $this->findOrCreateUser($socialiteUser, $socialPlatform);
+        dump($user);
+    }
+
+    private function findOrCreateUser(SocialiteUser $socialiteUser, string $socialPlatform): User
+    {
+        $query = User::query();
+        $user = $query->where('email', '=', $socialiteUser->email)
+            ->where('platform', '=', $socialPlatform)
+            ->first();
+
+        // user 不存在就註冊一個新的 user
+        if (is_null($user)) {
+            $user = $this->createNewUser($socialiteUser, $socialPlatform);
+        }
+        return $user;
+    }
+
+    private function createNewUser(SocialiteUser $socialiteUser, string $socialPlatform)
+    {
+        $user = new User();
+        $user->name = $socialiteUser->getName();
+        $user->email = $socialiteUser->getEmail();
+        $user->avatar = $socialiteUser->getAvatar();
+        $user->provider_id = $socialiteUser->getId();
+        $user->platform = $socialPlatform;
+        $user->save();
+        return $user;
+    }
 }
