@@ -24,5 +24,19 @@ class posts << (T,#ADD1B2) >>{
     --
     updated_at : timestamp
 }
+class question_class << (T,#ADD1B2) >>{
+    id
+    --
+    name : string
+    --
+    parent_id : unsignedBigInteger
+    --
+    status : boolean
+    --
+    created_at : timestamp
+    --
+    updated_at : timestamp
+}
 users::id “1” -- “*" posts::users_id
+question_class::id “*1” -- “*" question_class::parent_id
 @enduml
