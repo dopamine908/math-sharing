@@ -41,9 +41,12 @@ class SocialLoginController extends Controller
         // TODO 流程要再考量多一點的 edge case ，像是 decrypt 失敗或是 token 產失敗
         $userId = Crypt::decrypt($request->ott);
         $token = Auth::guard('api')->tokenById($userId);
+
         return Response::json(
             [
-                'access_token' => $token
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => Auth::guard('api')->factory()->getTTL() * 60 //sec
             ],
             SymfonyResponse::HTTP_OK
         );

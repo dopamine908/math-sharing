@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\JwtAuthenticationMiddleware;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -64,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
     private function registerApiRoutes(): void
     {
         Route::prefix('api')
-            ->middleware('api')
+            ->middleware(['api', JwtAuthenticationMiddleware::class])
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
     }

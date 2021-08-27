@@ -19,4 +19,5 @@ Route::get('/auth/login_success', [SocialLoginController::class, 'handleSocialPl
     'social-login.success'
 );
 
-//Route::get('api/user',[SocialLoginController::class, 'testGetUser'])->name('test_get_user');
+
+// TODO logout
