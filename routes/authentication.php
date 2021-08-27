@@ -15,8 +15,8 @@ Route::get(
     [StartSession::class]
 )->name('social-login.callback');
 
-Route::get('/auth/login_success', [SocialLoginController::class, 'handleSocialPlatformCallback'])->name(
+Route::get('/auth/login_success', [SocialLoginController::class, 'handleSocialPlatformLoginSuccess'])->name(
     'social-login.success'
 );
 
-//Route::get('api/user')
+//Route::get('api/user',[SocialLoginController::class, 'testGetUser'])->name('test_get_user');

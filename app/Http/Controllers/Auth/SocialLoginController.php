@@ -4,8 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class SocialLoginController extends Controller
 {
@@ -21,10 +27,26 @@ class SocialLoginController extends Controller
     public function handleSocialPlatformCallback(string $socialPlatform)
     {
         $socialiteUser = Socialite::driver($socialPlatform)->user();
-        dump($socialiteUser);
 
         $user = $this->findOrCreateUser($socialiteUser, $socialPlatform);
-        dump($user);
+
+        // TODO 先用 user id 當 ott ，之後要換成有時效性的 ott
+        $oneTimeToken = Crypt::encrypt($user->id);
+
+        return Redirect::route('social-login.success', ['ott' => $oneTimeToken]);
+    }
+
+    public function handleSocialPlatformLoginSuccess(Request $request)
+    {
+        // TODO 流程要再考量多一點的 edge case ，像是 decrypt 失敗或是 token 產失敗
+        $userId = Crypt::decrypt($request->ott);
+        $token = Auth::guard('api')->tokenById($userId);
+        return Response::json(
+            [
+                'access_token' => $token
+            ],
+            SymfonyResponse::HTTP_OK
+        );
     }
 
     private function findOrCreateUser(SocialiteUser $socialiteUser, string $socialPlatform): User
