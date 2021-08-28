@@ -151,4 +151,16 @@ class SocialLoginControllerTest extends TestCase
         // Assert
         $response->assertRedirect(route('home', ['error' => 'wrong_social_platform']));
     }
+
+    /**
+     * @test 登入成功頁面
+     */
+    public function handleSocialPlatformLoginSuccess()
+    {
+        // Actual
+        $response = $this->get(route('social-login.success'));
+
+        // Assert
+        $response->assertViewIs('login_success');
+    }
 }
