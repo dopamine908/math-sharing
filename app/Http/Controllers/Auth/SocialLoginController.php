@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class SocialLoginController extends Controller
 {
@@ -48,7 +47,22 @@ class SocialLoginController extends Controller
                 'token_type' => 'bearer',
                 'expires_in' => Auth::guard('api')->factory()->getTTL() * 60 //sec
             ],
-            SymfonyResponse::HTTP_OK
+            200
+        );
+    }
+
+    public function logout()
+    {
+        $isLogin = Auth::guard('api')->check();
+
+        if ($isLogin) {
+            Auth::guard('api')->logout();
+        }
+        return Response::json(
+            [
+                'message' => 'already logout'
+            ],
+            200
         );
     }
 

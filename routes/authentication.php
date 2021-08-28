@@ -19,5 +19,4 @@ Route::get('/auth/login_success', [SocialLoginController::class, 'handleSocialPl
     'social-login.success'
 );
 
-
-// TODO logout
+Route::get('/auth/logout', [SocialLoginController::class, 'logout'])->name('logout');
