@@ -35,7 +35,12 @@ class SocialLoginController extends Controller
         return Redirect::route('social-login.success', ['ott' => $oneTimeToken]);
     }
 
-    public function handleSocialPlatformLoginSuccess(Request $request)
+    public function handleSocialPlatformLoginSuccess()
+    {
+        return view('login_success');
+    }
+
+    public function getAccessToken(Request $request)
     {
         // TODO 流程要再考量多一點的 edge case ，像是 decrypt 失敗或是 token 產失敗
         $userId = Crypt::decrypt($request->ott);

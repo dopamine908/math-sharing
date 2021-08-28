@@ -19,4 +19,8 @@ Route::get('/auth/login_success', [SocialLoginController::class, 'handleSocialPl
     'social-login.success'
 );
 
+Route::get('/auth/access_token', [SocialLoginController::class, 'getAccessToken'])->name(
+    'social-login.access_token'
+);
+
 Route::get('/auth/logout', [SocialLoginController::class, 'logout'])->name('logout');
