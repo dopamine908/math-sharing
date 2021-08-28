@@ -3,17 +3,23 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Services\Authentication\SocialLoginService;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
+    private SocialLoginService $SocialLoginService;
+
+    public function __construct(SocialLoginService $socialLoginService)
+    {
+        $this->SocialLoginService = $socialLoginService;
+    }
+
     public function redirectToSocialPlatform(string $socialPlatform)
     {
         if ($socialPlatform !== 'google') {
@@ -30,7 +36,7 @@ class SocialLoginController extends Controller
 
         $socialiteUser = Socialite::driver($socialPlatform)->user();
 
-        $user = $this->findOrCreateUser($socialiteUser, $socialPlatform);
+        $user = $this->SocialLoginService->findOrCreateUser($socialiteUser, $socialPlatform);
 
         // TODO 先用 user id 當 ott ，之後要換成有時效性的 ott
         $oneTimeToken = Crypt::encrypt($user->id);
@@ -74,29 +80,5 @@ class SocialLoginController extends Controller
         );
     }
 
-    private function findOrCreateUser(SocialiteUser $socialiteUser, string $socialPlatform): User
-    {
-        $query = User::query();
-        $user = $query->where('email', '=', $socialiteUser->getEmail())
-            ->where('platform', '=', $socialPlatform)
-            ->first();
 
-        // user 不存在就註冊一個新的 user
-        if (is_null($user)) {
-            $user = $this->createNewUser($socialiteUser, $socialPlatform);
-        }
-        return $user;
-    }
-
-    private function createNewUser(SocialiteUser $socialiteUser, string $socialPlatform)
-    {
-        $user = new User();
-        $user->name = $socialiteUser->getName();
-        $user->email = $socialiteUser->getEmail();
-        $user->avatar = $socialiteUser->getAvatar();
-        $user->provider_id = $socialiteUser->getId();
-        $user->platform = $socialPlatform;
-        $user->save();
-        return $user;
-    }
 }
