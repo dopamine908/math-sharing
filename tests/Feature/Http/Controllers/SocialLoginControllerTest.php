@@ -57,11 +57,7 @@ class SocialLoginControllerTest extends TestCase
     {
         // Arrange
         $route = route('social-login.callback', ['social_platform' => 'google']);
-        $stubSocialiteUser = $this->createStub(SocialiteUser::class);
-        $stubSocialiteUser->method('getName')->willReturn('test_user_name');
-        $stubSocialiteUser->method('getEmail')->willReturn('test@gmail.com');
-        $stubSocialiteUser->method('getAvatar')->willReturn('test_avatar_url');
-        $stubSocialiteUser->method('getId')->willReturn('123456789');
+        $stubSocialiteUser = $this->getStubSocialiteUser();
         Socialite::shouldReceive('driver')
             ->with('google')
             ->once()
@@ -105,11 +101,7 @@ class SocialLoginControllerTest extends TestCase
             ]
         );
         $route = route('social-login.callback', ['social_platform' => 'google']);
-        $stubSocialiteUser = $this->createStub(SocialiteUser::class);
-        $stubSocialiteUser->method('getName')->willReturn('test_user_name');
-        $stubSocialiteUser->method('getEmail')->willReturn('test@gmail.com');
-        $stubSocialiteUser->method('getAvatar')->willReturn('test_avatar_url');
-        $stubSocialiteUser->method('getId')->willReturn('123456789');
+        $stubSocialiteUser = $this->getStubSocialiteUser();
         Socialite::shouldReceive('driver')
             ->with('google')
             ->once()
@@ -256,5 +248,18 @@ class SocialLoginControllerTest extends TestCase
         );
         $response->assertStatus(200);
         $this->assertFalse(Auth::guard('api')->check());
+    }
+
+    /**
+     * @return SocialiteUser|mixed|\PHPUnit\Framework\MockObject\Stub
+     */
+    private function getStubSocialiteUser(): mixed
+    {
+        $stubSocialiteUser = $this->createStub(SocialiteUser::class);
+        $stubSocialiteUser->method('getName')->willReturn('test_user_name');
+        $stubSocialiteUser->method('getEmail')->willReturn('test@gmail.com');
+        $stubSocialiteUser->method('getAvatar')->willReturn('test_avatar_url');
+        $stubSocialiteUser->method('getId')->willReturn('123456789');
+        return $stubSocialiteUser;
     }
 }
