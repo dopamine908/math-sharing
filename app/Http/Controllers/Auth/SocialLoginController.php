@@ -24,6 +24,10 @@ class SocialLoginController extends Controller
 
     public function handleSocialPlatformCallback(string $socialPlatform)
     {
+        if ($socialPlatform !== 'google') {
+            return Redirect::route('home', ['error' => 'wrong_social_platform']);
+        }
+
         $socialiteUser = Socialite::driver($socialPlatform)->user();
 
         $user = $this->findOrCreateUser($socialiteUser, $socialPlatform);
@@ -72,8 +76,11 @@ class SocialLoginController extends Controller
 
     private function findOrCreateUser(SocialiteUser $socialiteUser, string $socialPlatform): User
     {
+//        dump($socialiteUser);
+//        dump($socialPlatform);
+//        dump($socialiteUser->name);
         $query = User::query();
-        $user = $query->where('email', '=', $socialiteUser->email)
+        $user = $query->where('email', '=', $socialiteUser->getEmail())
             ->where('platform', '=', $socialPlatform)
             ->first();
 
@@ -86,6 +93,7 @@ class SocialLoginController extends Controller
 
     private function createNewUser(SocialiteUser $socialiteUser, string $socialPlatform)
     {
+//        dump($socialiteUser->getName());
         $user = new User();
         $user->name = $socialiteUser->getName();
         $user->email = $socialiteUser->getEmail();
