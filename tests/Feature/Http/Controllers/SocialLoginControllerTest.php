@@ -163,4 +163,41 @@ class SocialLoginControllerTest extends TestCase
         // Assert
         $response->assertViewIs('login_success');
     }
+
+    /**
+     * @test 取得 access_token
+     */
+    public function getAccessToken()
+    {
+        // Arrange
+        User::factory()->count(1)->create(
+            [
+                'name' => 'test_user_name',
+                'email' => 'test@gmail.com',
+                'avatar' => 'test_avatar_url',
+                'provider_id' => '123456789',
+                'platform' => 'google',
+            ]
+        );
+        $route = route('social-login.access_token', [
+            'ott' => '123456789'
+        ]);
+        Crypt::shouldReceive('decrypt')
+            ->with('123456789')
+            ->once()
+            ->andReturn(1);
+
+        // Actual
+        $response = $this->get($route);
+
+        // Assert
+        $response->assertStatus(200);
+        $response->assertJsonStructure(
+            [
+                'access_token',
+                'token_type',
+                'expires_in',
+            ]
+        );
+    }
 }
