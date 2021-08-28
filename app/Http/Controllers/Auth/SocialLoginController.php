@@ -76,9 +76,6 @@ class SocialLoginController extends Controller
 
     private function findOrCreateUser(SocialiteUser $socialiteUser, string $socialPlatform): User
     {
-//        dump($socialiteUser);
-//        dump($socialPlatform);
-//        dump($socialiteUser->name);
         $query = User::query();
         $user = $query->where('email', '=', $socialiteUser->getEmail())
             ->where('platform', '=', $socialPlatform)
@@ -93,7 +90,6 @@ class SocialLoginController extends Controller
 
     private function createNewUser(SocialiteUser $socialiteUser, string $socialPlatform)
     {
-//        dump($socialiteUser->getName());
         $user = new User();
         $user->name = $socialiteUser->getName();
         $user->email = $socialiteUser->getEmail();

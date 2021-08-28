@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\One\User as SocialiteUser;
@@ -199,5 +200,61 @@ class SocialLoginControllerTest extends TestCase
                 'expires_in',
             ]
         );
+    }
+
+    /**
+     * @test
+     */
+    public function login_user_logout()
+    {
+        // Arrange
+        User::factory()->count(1)->create(
+            [
+                'name' => 'test_user_name',
+                'email' => 'test@gmail.com',
+                'avatar' => 'test_avatar_url',
+                'provider_id' => '123456789',
+                'platform' => 'google',
+            ]
+        );
+        $route = route('logout');
+        $token = Auth::guard('api')->tokenById(1);
+
+        // Actual
+        $response = $this->withHeaders(
+            [
+                'Authorization' => "Bearer {$token}"
+            ]
+        )->get($route);
+
+        // Assert
+        $response->assertJson(
+            [
+                'message' => 'already logout'
+            ]
+        );
+        $response->assertStatus(200);
+        $this->assertFalse(Auth::guard('api')->check());
+    }
+
+    /**
+     * @test
+     */
+    public function not_login_user_logout()
+    {
+        // Arrange
+        $route = route('logout');
+
+        // Actual
+        $response = $this->get($route);
+
+        // Assert
+        $response->assertJson(
+            [
+                'message' => 'already logout'
+            ]
+        );
+        $response->assertStatus(200);
+        $this->assertFalse(Auth::guard('api')->check());
     }
 }
