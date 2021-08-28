@@ -16,10 +16,9 @@ class SocialLoginController extends Controller
 {
     public function redirectToSocialPlatform(string $socialPlatform)
     {
-        // TODO 沒有使用(或驗證不合法)的社群登入要把他轉回首頁並帶錯誤 url query
-//        if () {
-//            return Redirect::route('home',['error'=>'wrong_social_platform']);
-//        }
+        if ($socialPlatform !== 'google') {
+            return Redirect::route('home', ['error' => 'wrong_social_platform']);
+        }
         return Socialite::driver($socialPlatform)->redirect();
     }
 
