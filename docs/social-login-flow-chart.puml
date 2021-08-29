@@ -17,11 +17,12 @@ group Login
 end
 
 group Logout
-    "Frontend" -> "Backend" :
+    "Frontend" -> "Backend" : call /auth/logout
+    "Backend" -> "Frontend" : return {'message' => 'already logout'}
 end
 
-group Token expired
-    "Frontend" -> "Backend" :
-end
+'group Token expired
+'    "Frontend" -> "Backend" :
+'end
 
 @enduml
