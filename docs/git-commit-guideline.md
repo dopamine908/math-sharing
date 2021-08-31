@@ -1,5 +1,22 @@
 # Git Commit Guideline
 
+## Git Branch 規範
+
+- feature: 新的功能
+- fix: 問題修正
+- docs: 文件纇
+- style: 格式變動（不影響程式功能）
+- refactor: 重構，不影響現有功能也不新增功能
+- perf: 效能優化
+- test: 新增遺漏掉的測試或修正已存在的測試
+- chore: 與環境建立、套件安裝修改 
+
+### Example
+
+```
+feature/xxx 新增分支
+```
+
 ## Git Commit 規範
 
 - feat: 新的功能

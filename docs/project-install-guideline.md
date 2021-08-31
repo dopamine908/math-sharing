@@ -22,20 +22,22 @@ NOTE.
 2. composer install
 3. php artisan key:generate
 
+補充 : 如遇到 WINDOWS 10 出現
 ---
-## Step2.(這邊重複)
 
-```zsh
-> sh project_install.sh
+```
+ERROR: for workspace Cannot start service workspace: Ports are not available: listen tcp 0.0.0.0:2222: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
 ```
 
-該指令會做以下事項：
-1. 安裝 docker 環境
-2. composer install
-3. php artisan key:generate
+解決 :
 
+```
+net stop winnat 停用
+net start winnat 重新啟用
+```
 ---
-## Step3. 設定網址與IP的對應
+## Step2. 設定網址與IP的對應
+
 ### mac or linux
 ```zsh
 > vim /etc/hosts
@@ -65,7 +67,7 @@ NOTE.
 
 
 ---
-## Step4. 連接laradock的mysql
+## Step3. 連接laradock的mysql
 
 ```
 Host : 127.0.0.1
