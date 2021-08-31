@@ -23,6 +23,7 @@ NOTE.
 3. php artisan key:generate
 
 補充 : 如遇到 WINDOWS 10 出現
+---
 
 ```
 ERROR: for workspace Cannot start service workspace: Ports are not available: listen tcp 0.0.0.0:2222: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
@@ -37,6 +38,7 @@ net start winnat 重新啟用
 ---
 ## Step2. 設定網址與IP的對應
 
+### mac or linux
 ```zsh
 > vim /etc/hosts
 
@@ -45,6 +47,17 @@ net start winnat 重新啟用
 
 // 儲存離開
 :wq
+```
+### window
+```
+// 找到window host file
+C:\WINDOWS\system32\drivers\etc\hosts
+// 複製到桌面
+
+// 加入這行
+127.0.0.1 dev.math-sharing.com
+
+// 用系統管理員覆蓋 C:\WINDOWS\system32\drivers\etc\hosts
 ```
 
 試著用網址開啟: https://dev.math-sharing.com:58443/
