@@ -23,7 +23,7 @@ NOTE.
 3. php artisan key:generate
 
 ---
-## Step2.
+## Step2.(這邊重複)
 
 ```zsh
 > sh project_install.sh
