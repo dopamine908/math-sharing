@@ -12,14 +12,14 @@ class UserRepository
         string $name,
         string $email,
         string $avatar,
-        string $provider_id,
+        string $providerId,
         string $platform,
     ): User {
         $user = new User();
         $user->name = $name;
         $user->email = $email;
         $user->avatar = $avatar;
-        $user->provider_id = $provider_id;
+        $user->provider_id = $providerId;
         $user->platform = $platform;
         $user->save();
         return $user;

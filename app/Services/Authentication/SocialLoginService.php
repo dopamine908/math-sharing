@@ -8,16 +8,16 @@ use Laravel\Socialite\Contracts\User as SocialiteUser;
 
 class SocialLoginService
 {
-    private UserRepository $UserRepository;
+    private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
-        $this->UserRepository = $userRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function findOrCreateUser(SocialiteUser $socialiteUser, string $socialPlatform): User
     {
-        $user = $this->UserRepository->getUserByEmailAndPlatform(
+        $user = $this->userRepository->getUserByEmailAndPlatform(
             email:    $socialiteUser->getEmail(),
             platform: $socialPlatform,
         );
@@ -35,12 +35,12 @@ class SocialLoginService
 
     private function createNewUser(SocialiteUser $socialiteUser, string $socialPlatform)
     {
-        return $this->UserRepository->createUser(
-            name:        $socialiteUser->getName(),
-            email:       $socialiteUser->getEmail(),
-            avatar:      $socialiteUser->getAvatar(),
-            provider_id: $socialiteUser->getId(),
-            platform:    $socialPlatform,
+        return $this->userRepository->createUser(
+            name:       $socialiteUser->getName(),
+            email:      $socialiteUser->getEmail(),
+            avatar:     $socialiteUser->getAvatar(),
+            providerId: $socialiteUser->getId(),
+            platform:   $socialPlatform,
         );
     }
 }

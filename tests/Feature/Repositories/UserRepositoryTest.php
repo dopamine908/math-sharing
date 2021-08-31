@@ -20,17 +20,17 @@ class UserRepositoryTest extends TestCase
         $name = 'test_name';
         $email = 'test@gmail.com';
         $avatar = 'test_avatar_url';
-        $provider_id = '123456789';
+        $providerId = '123456789';
         $platform = 'google';
         $UserRepository = new UserRepository();
 
         // Actual
         $actual = $UserRepository->createUser(
-            name:        $name,
-            email:       $email,
-            avatar:      $avatar,
-            provider_id: $provider_id,
-            platform:    $platform,
+            name:       $name,
+            email:      $email,
+            avatar:     $avatar,
+            providerId: $providerId,
+            platform:   $platform,
         );
 
         // Assert
@@ -41,7 +41,7 @@ class UserRepositoryTest extends TestCase
                        'name' => $name,
                        'email' => $email,
                        'avatar' => $avatar,
-                       'provider_id' => $provider_id,
+                       'provider_id' => $providerId,
                        'platform' => $platform,
                    ]
         );
@@ -56,14 +56,14 @@ class UserRepositoryTest extends TestCase
         $name = 'test_name';
         $email = 'test@gmail.com';
         $avatar = 'test_avatar_url';
-        $provider_id = '123456789';
+        $providerId = '123456789';
         $platform = 'google';
         User::factory()->count(1)->create(
             [
                 'name' => $name,
                 'email' => $email,
                 'avatar' => $avatar,
-                'provider_id' => $provider_id,
+                'provider_id' => $providerId,
                 'platform' => $platform,
             ]
         );
@@ -82,7 +82,7 @@ class UserRepositoryTest extends TestCase
                           'name' => $name,
                           'email' => $email,
                           'avatar' => $avatar,
-                          'provider_id' => $provider_id,
+                          'provider_id' => $providerId,
                           'platform' => $platform,
                       ],
             actual:   [
