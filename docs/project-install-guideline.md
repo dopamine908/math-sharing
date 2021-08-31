@@ -36,7 +36,7 @@ NOTE.
 
 ---
 ## Step3. 設定網址與IP的對應
-
+### mac or linux
 ```zsh
 > vim /etc/hosts
 
@@ -45,6 +45,17 @@ NOTE.
 
 // 儲存離開
 :wq
+```
+### window
+```
+// 找到window host file
+C:\WINDOWS\system32\drivers\etc\hosts
+// 複製到桌面
+
+// 加入這行
+127.0.0.1 dev.math-sharing.com
+
+// 用系統管理員覆蓋 C:\WINDOWS\system32\drivers\etc\hosts
 ```
 
 試著用網址開啟: https://dev.math-sharing.com:58443/
