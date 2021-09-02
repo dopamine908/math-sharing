@@ -9,13 +9,13 @@
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
         <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
+            <directory suffix="Test.php">./tests/Feature/App</directory>
         </testsuite>
         <testsuite name="Api">
-            <directory suffix="Test.php">./tests/Api</directory>
+            <directory suffix="Test.php">./tests/Feature/Api</directory>
         </testsuite>
         <testsuite name="Acceptance">
-            <directory suffix="Test.php">./tests/Acceptance</directory>
+            <directory suffix="Test.php">./tests/Feature/Acceptance</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

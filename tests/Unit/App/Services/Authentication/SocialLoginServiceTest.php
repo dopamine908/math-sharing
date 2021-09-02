@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\Authentication;
+namespace Tests\Unit\App\Services\Authentication;
 
 use App\Helpers\TestHelper;
 use App\Models\User;
