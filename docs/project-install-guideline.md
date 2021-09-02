@@ -134,3 +134,11 @@ php artisan ide-helper:generate
 ```
 composer install
 ```
+
+---
+
+## 開發網址名稱
+
+```
+https://dev.math-sharing.com:58443
+```
