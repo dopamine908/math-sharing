@@ -17,6 +17,11 @@
 feature/xxx 新增分支
 ```
 
+(有issue單的情況)
+```
+feature/#25_katex-CRUD  新增分支
+```
+
 ## Git Commit 規範
 
 - feat: 新的功能
