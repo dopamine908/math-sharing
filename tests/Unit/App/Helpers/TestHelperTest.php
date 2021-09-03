@@ -13,7 +13,7 @@ class TestHelperTest extends TestCase
     public function testCreateMock()
     {
         // Actual
-        $mockFoo = TestHelper::createMock(Foo::class);
+        $mockFoo = $this->createMockeryMock(Foo::class);
 
         // Assert
         $this->assertInstanceOf(expected: Foo::class, actual: $mockFoo);

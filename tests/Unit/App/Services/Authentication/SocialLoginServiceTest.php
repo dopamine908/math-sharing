@@ -19,7 +19,7 @@ class SocialLoginServiceTest extends TestCase
     public function findOrCreateUser_user_exist()
     {
         // Arrange
-        $mockUserRepository = TestHelper::createMock(UserRepository::class);
+        $mockUserRepository = $this->createMockeryMock(UserRepository::class);
         /** @var SocialLoginService $SocialLoginService */
         $SocialLoginService = $this->app->make(SocialLoginService::class);
 
@@ -44,7 +44,7 @@ class SocialLoginServiceTest extends TestCase
     public function findOrCreateUser_user_not_exist()
     {
         // Arrange
-        $mockUserRepository = TestHelper::createMock(UserRepository::class);
+        $mockUserRepository = $this->createMockeryMock(UserRepository::class);
         /** @var SocialLoginService $SocialLoginService */
         $SocialLoginService = $this->app->make(SocialLoginService::class);
 
