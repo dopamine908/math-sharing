@@ -4,13 +4,10 @@ namespace Tests\Feature\App\Repositories;
 
 use App\Models\Question;
 use App\Repositories\QuestionRepository;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Tests\Feature\TestCase;
 
 class QuestionRepositoryTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected QuestionRepository $sut;
 
     /**
