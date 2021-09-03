@@ -18,10 +18,6 @@ class QuestionRepositoryTest extends TestCase
     public function GivenQuestionId_WhenFind_ThenReturnModelWithId()
     {
         //Arrange
-
-        /**
-         * @var QuestionRepository
-         */
         $this->sut = app(QuestionRepository::class);
 
         $questions = Question::factory()
