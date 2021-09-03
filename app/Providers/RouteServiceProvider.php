@@ -39,14 +39,17 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            // 註冊 Api Routes
-            $this->registerApiRoutes();
-
             // 註冊社群登入 Routes
             $this->registerAuthenticationRoute();
 
             // 註冊 web Routes
             $this->registerWebRoutes();
+
+            // 註冊 Api Routes（需驗證）
+            $this->registerApiAuthRoutes();
+
+            // 註冊 Api Routes（不需驗證）
+            $this->registerApiPublicRoutes();
         });
     }
 
@@ -62,14 +65,6 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    private function registerApiRoutes(): void
-    {
-        Route::prefix('api')
-            ->middleware(['api', JwtAuthenticationMiddleware::class])
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
-    }
-
     private function registerWebRoutes(): void
     {
         Route::middleware('web')
@@ -81,5 +76,25 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::namespace($this->namespace)
             ->group(base_path('routes/authentication.php'));
+    }
+
+    protected function registerApiPublicRoutes()
+    {
+        foreach (glob(base_path('routes/public/*.php')) as $file) {
+            Route::prefix('api')
+                ->middleware('api')
+                ->namespace($this->namespace)
+                ->group($file);
+        }
+    }
+
+    protected function registerApiAuthRoutes()
+    {
+        foreach (glob(base_path('routes/auth/*.php')) as $file) {
+            Route::prefix('api')
+                ->middleware(['api', JwtAuthenticationMiddleware::class])
+                ->namespace($this->namespace)
+                ->group($file);
+        }
     }
 }
