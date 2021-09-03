@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\App\Services\Authentication;
 
-use App\Helpers\TestHelper;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\Authentication\SocialLoginService;
@@ -16,60 +15,70 @@ class SocialLoginServiceTest extends TestCase
     /**
      * @test
      */
-    public function findOrCreateUser_user_exist()
+    public function Given_user_exist_When_call_findOrCreateUser_Then_check_not_called_createNewUser()
     {
-        // Arrange
-        $mockUserRepository = $this->createMockeryMock(UserRepository::class);
-        /** @var SocialLoginService $SocialLoginService */
-        $SocialLoginService = $this->app->make(SocialLoginService::class);
+        $this->specify(
+            '測試 findOrCreateUser ，當使用者存在時，驗證不觸發新增一位使用者',
+            function () {
+                // Arrange
+                $mockUserRepository = $this->createMockeryMock(UserRepository::class);
+                /** @var SocialLoginService $SocialLoginService */
+                $SocialLoginService = $this->app->make(SocialLoginService::class);
 
-        $stubSocialiteUser = $this->getStubSocialiteUser();
-        $insertUser = $this->getStubInsertUser();
-        $mockUserRepository->shouldReceive('getUserByEmailAndPlatform')
-            ->with('test@gmail.com', 'google')
-            ->once()
-            ->andReturn($insertUser);
-        $mockUserRepository->shouldNotReceive('createNewUser');
+                $stubSocialiteUser = $this->getStubSocialiteUser();
+                $insertUser = $this->getStubInsertUser();
+                $mockUserRepository->shouldReceive('getUserByEmailAndPlatform')
+                    ->with('test@gmail.com', 'google')
+                    ->once()
+                    ->andReturn($insertUser);
+                $mockUserRepository->shouldNotReceive('createNewUser');
 
-        // Actual
-        $actual = $SocialLoginService->findOrCreateUser($stubSocialiteUser, 'google');
+                // Actual
+                $actual = $SocialLoginService->findOrCreateUser($stubSocialiteUser, 'google');
 
-        // Assert
-        $this->assertEquals($insertUser, $actual);
+                // Assert
+                $this->assertEquals($insertUser, $actual);
+            }
+        );
     }
 
     /**
      * @test
      */
-    public function findOrCreateUser_user_not_exist()
+    public function Given_user_not_exist_When_call_findOrCreateUser_Then_check_called_createNewUser()
     {
-        // Arrange
-        $mockUserRepository = $this->createMockeryMock(UserRepository::class);
-        /** @var SocialLoginService $SocialLoginService */
-        $SocialLoginService = $this->app->make(SocialLoginService::class);
+        $this->specify(
+            '測試 findOrCreateUser ，當使用者不存在時，驗證觸發新增一位使用者',
+            function () {
+                // Arrange
+                $mockUserRepository = $this->createMockeryMock(UserRepository::class);
+                /** @var SocialLoginService $SocialLoginService */
+                $SocialLoginService = $this->app->make(SocialLoginService::class);
 
-        $stubSocialiteUser = $this->getStubSocialiteUser();
-        $insertUser = $this->getStubInsertUser();
-        $mockUserRepository->shouldReceive('getUserByEmailAndPlatform')
-            ->with('test@gmail.com', 'google')
-            ->once()
-            ->andReturn(null);
-        $mockUserRepository->shouldReceive('createUser')
-            ->with(
-                'test_user_name',
-                'test@gmail.com',
-                'test_avatar_url',
-                '123456789',
-                'google',
-            )
-            ->once()
-            ->andReturn($insertUser);
+                $stubSocialiteUser = $this->getStubSocialiteUser();
+                $insertUser = $this->getStubInsertUser();
+                $mockUserRepository->shouldReceive('getUserByEmailAndPlatform')
+                    ->with('test@gmail.com', 'google')
+                    ->once()
+                    ->andReturn(null);
+                $mockUserRepository->shouldReceive('createUser')
+                    ->with(
+                        'test_user_name',
+                        'test@gmail.com',
+                        'test_avatar_url',
+                        '123456789',
+                        'google',
+                    )
+                    ->once()
+                    ->andReturn($insertUser);
 
-        // Actual
-        $actual = $SocialLoginService->findOrCreateUser($stubSocialiteUser, 'google');
+                // Actual
+                $actual = $SocialLoginService->findOrCreateUser($stubSocialiteUser, 'google');
 
-        // Assert
-        $this->assertEquals($insertUser, $actual);
+                // Assert
+                $this->assertEquals($insertUser, $actual);
+            }
+        );
     }
 
     /**
