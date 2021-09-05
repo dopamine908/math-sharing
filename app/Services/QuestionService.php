@@ -2,7 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Question;
 use App\Repositories\QuestionRepository;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuestionService
 {
@@ -13,8 +18,20 @@ class QuestionService
         $this->questionRepository = $questionRepository;
     }
 
-    public function read(int $id)
+    /**
+     * @param int $id
+     * @return Model|Collection|Builder|array
+     *
+     * @throws ModelNotFoundException
+     */
+    public function read(int $id): Model|Collection|Builder|array
     {
-        return $this->questionRepository->find($id);
+        $model = $this->questionRepository->find($id);
+
+        if (is_null($model)) {
+            throw new ModelNotFoundException();
+        }
+
+        return $model;
     }
 }
