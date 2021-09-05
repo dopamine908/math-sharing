@@ -12,8 +12,6 @@ class QuestionRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @todo 也許這種測試就別寫了，徒增每次的執行時間
      */
     public function GivenQuestionId_WhenFind_ThenReturnModelWithId()
     {
@@ -35,8 +33,6 @@ class QuestionRepositoryTest extends TestCase
 
     /**
      * @test
-     *
-     * @todo 也許這種測試就別寫了，徒增每次的執行時間
      */
     public function GivenQuestionId_WhenNotFound_ThenReturnNull()
     {
