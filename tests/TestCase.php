@@ -17,4 +17,14 @@ abstract class TestCase extends BaseTestCase
         app()->instance($targetClass, $mockTargetClass);
         return $mockTargetClass;
     }
+
+    public function createMockToContainer(mixed $targetClass): mixed
+    {
+        return $this->createMockeryMock($targetClass);
+    }
+
+    public function createStubToContainer(mixed $targetClass): mixed
+    {
+        return $this->createMockeryMock($targetClass);
+    }
 }
