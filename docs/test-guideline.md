@@ -5,9 +5,9 @@
 ```
 /Feature
     /Acceptance（驗收測試：多個 api 配合的測試）
-    /Api（Api 測試：測試單個 api ）
+    /Api（Api測試：測試單個 api）
     /App（整合測試）
-        /Http
+        /Http (Controller 不用寫，請移至 Api)
         /Services...
 
 /Unit（單元測試）
