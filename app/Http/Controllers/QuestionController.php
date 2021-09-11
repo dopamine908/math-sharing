@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\QuestionService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +30,30 @@ class QuestionController extends Controller
                 ->json([
                            'data' => $data,
                        ]);
+        } catch (\Throwable $th) {
+            return $this->errorHandling($th);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        try {
+            $question = $this->questionService->create(
+                [
+                    'description' => $request->get('description'),
+                ]
+            );
+
+            return response()->json(
+                [
+                    'data' => $question,
+                ],
+                Response::HTTP_CREATED
+            );
         } catch (\Throwable $th) {
             return $this->errorHandling($th);
         }

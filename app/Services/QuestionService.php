@@ -41,9 +41,10 @@ class QuestionService
      */
     public function create(array $data): Question
     {
+        //TODO: ask how to mock user on postman
         $data = array_merge(
             [
-                'users_id' => auth()->user()->id,
+                'users_id' => auth()->user()->id ?? 0,
             ],
             $data
         );

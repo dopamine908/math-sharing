@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller extends BaseController
@@ -18,14 +19,14 @@ class Controller extends BaseController
 
     protected function errorHandling(\Throwable $th): JsonResponse
     {
-        //TODO: Write Throwable to log.
-
         if ($th instanceof ModelNotFoundException) {
             return response()
                 ->json([
                            'message' => 'Resource Not Found',
                        ], Response::HTTP_NOT_FOUND);
         }
+
+        Log::error($th);
 
         return response()
             ->json([
