@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\App\Helpers;
 
-use App\Helpers\TestHelper;
 use Tests\TestCase;
 
 class TestHelperTest extends TestCase
