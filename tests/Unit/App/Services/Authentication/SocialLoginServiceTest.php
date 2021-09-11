@@ -15,7 +15,7 @@ class SocialLoginServiceTest extends TestCase
     /**
      * @test
      */
-    public function Given_user_exist_When_call_findOrCreateUser_Then_check_not_called_createNewUser()
+    public function GivenUserExist_WhenCallFindOrCreateUser_ThenCheckNotCalledCreateNewUser()
     {
         $this->specify(
             '測試 findOrCreateUser ，當使用者存在時，驗證不觸發新增一位使用者',
@@ -45,7 +45,7 @@ class SocialLoginServiceTest extends TestCase
     /**
      * @test
      */
-    public function Given_user_not_exist_When_call_findOrCreateUser_Then_check_called_createNewUser()
+    public function GivenUserNotExist_WhenCallFindOrCreateUser_ThenCheckCalledCreateNewUser()
     {
         $this->specify(
             '測試 findOrCreateUser ，當使用者不存在時，驗證觸發新增一位使用者',
@@ -91,6 +91,7 @@ class SocialLoginServiceTest extends TestCase
         $stubSocialiteUser->method('getEmail')->willReturn('test@gmail.com');
         $stubSocialiteUser->method('getAvatar')->willReturn('test_avatar_url');
         $stubSocialiteUser->method('getId')->willReturn('123456789');
+
         return $stubSocialiteUser;
     }
 
@@ -108,6 +109,7 @@ class SocialLoginServiceTest extends TestCase
                 'platform' => 'google',
             ]
         );
+
         return $insertUser;
     }
 }
