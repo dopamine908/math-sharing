@@ -18,7 +18,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test 測試導向 google 登入
      */
-    public function Given_call_google_login_When_call_redirectToSocialPlatform_Then_socialite_call_redirect()
+    public function GivenCallGoogleLogin_WhenCallRedirectToSocialPlatform_ThenSocialiteCallRedirect()
     {
         $this->specify('測試按下 google 登入按鈕，Socialite 以 google 為 driver 的 redirect 要被觸發', function () {
             // Arrange
@@ -40,7 +40,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test 測試導向 非支援的平台 登入
      */
-    public function Given_call_unknown_login_When_call_redirectToSocialPlatform_Then_redirect_to_home_with_error()
+    public function GivenCallUnknownLogin_WhenCallRedirectToSocialPlatform_ThenRedirectToHomeWithError()
     {
         $this->specify('測試當社群登入的平台不符合支援的時候，會被導向到首頁並在網址帶 ?error=wrong_social_platform', function () {
             // Arrange
@@ -57,7 +57,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test google 登入(第一次註冊)跳轉到登入成功頁面，帶 ott
      */
-    public function Given_unregister_user_google_login_success_When_handleSocialPlatformCallback_Then_redirect_to_login_success_page_with_ott(
+    public function GivenUnregisterUserGoogleLoginSuccess_WhenHandleSocialPlatformCallback_ThenRedirectToLoginSuccessPageWithOtt(
     ) {
         $this->specify('尚未註冊過的使用者 google 登入成功，導向到登入成功頁面，網址帶 ott 參數', function () {
             // Arrange
@@ -94,7 +94,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test google 登入(已經註冊過)跳轉到登入成功頁面，帶 ott
      */
-    public function Given_registered_user_google_login_success_When_handleSocialPlatformCallback_Then_redirect_to_login_success_page_with_ott(
+    public function GivenRegisteredUserGoogleLoginSuccess_WhenHandleSocialPlatformCallback_ThenRedirectToLoginSuccessPageWithOtt(
     ) {
         $this->specify('註冊過的使用者 google 登入成功，導向到登入成功頁面，網址帶 ott 參數，且資料庫不會重複新增使用者', function () {
             // Arrange
@@ -141,7 +141,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test 非認證的社群登入 跳轉到首頁帶 error
      */
-    public function Given_unknown_social_platform_When_handleSocialPlatformCallback_Then_redirect_to_home_with_error()
+    public function GivenUnknownSocialPlatform_WhenHandleSocialPlatformCallback_ThenRedirectToHomeWithError()
     {
         $this->specify('不合法的社群登入 callback，驗證導向回首頁並且網址帶有 ?error=wrong_social_platform', function () {
             // Arrange
@@ -158,7 +158,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test 登入成功頁面
      */
-    public function When_handleSocialPlatformLoginSuccess_Then_check_view_is_login_success()
+    public function GivenLoginSuccessUser_WhenHandleSocialPlatformLoginSuccess_ThenCheckViewIsLoginSuccess()
     {
         $this->specify('登入成功頁面，驗證使用 login_success.blade.php', function () {
             // Actual
@@ -172,7 +172,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test 取得 access_token
      */
-    public function Given_ott_When_getAccessToken_Then_return_access_token()
+    public function GivenOtt_WhenGetAccessToken_ThenReturnAccessToken()
     {
         $this->specify('測試用 ott 換取 user 的 access_token', function () {
             // Arrange
@@ -186,7 +186,7 @@ class SocialLoginControllerTest extends TestCase
                 ]
             );
             $route = route('social-login.access_token', [
-                'ott' => '123456789'
+                'ott' => '123456789',
             ]);
             Crypt::shouldReceive('decrypt')
                 ->with('123456789')
@@ -211,7 +211,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test
      */
-    public function Given_login_user_When_logout_Then_logout_success()
+    public function GivenLoginUser_WhenLogout_ThenLogoutSuccess()
     {
         $this->specify('已登入使用者登出，驗證再度拿同樣的 access_token 取得資料會失敗', function () {
             // Arrange
@@ -230,14 +230,14 @@ class SocialLoginControllerTest extends TestCase
             // Actual
             $response = $this->withHeaders(
                 [
-                    'Authorization' => "Bearer {$token}"
+                    'Authorization' => "Bearer {$token}",
                 ]
             )->get($route);
 
             // Assert
             $response->assertJson(
                 [
-                    'message' => 'already logout'
+                    'message' => 'already logout',
                 ]
             );
             $response->assertStatus(200);
@@ -248,7 +248,7 @@ class SocialLoginControllerTest extends TestCase
     /**
      * @test
      */
-    public function Given_not_login_user_When_logout_Then_logout_success()
+    public function GivenNotLoginUser_WhenLogout_ThenLogoutSuccess()
     {
         $this->specify('未登入使用者登出，驗證再度拿同樣的 access_token 取得資料會失敗', function () {
             // Arrange
@@ -260,7 +260,7 @@ class SocialLoginControllerTest extends TestCase
             // Assert
             $response->assertJson(
                 [
-                    'message' => 'already logout'
+                    'message' => 'already logout',
                 ]
             );
             $response->assertStatus(200);
@@ -278,6 +278,7 @@ class SocialLoginControllerTest extends TestCase
         $stubSocialiteUser->method('getEmail')->willReturn('test@gmail.com');
         $stubSocialiteUser->method('getAvatar')->willReturn('test_avatar_url');
         $stubSocialiteUser->method('getId')->willReturn('123456789');
+
         return $stubSocialiteUser;
     }
 }
