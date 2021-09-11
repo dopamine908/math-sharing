@@ -21,7 +21,7 @@ class QuestionRepository
         return $this->model::query()->find($id);
     }
 
-    public function create(array $data): bool
+    public function create(array $data): Question
     {
         /**
          * @var Question $model
@@ -31,6 +31,8 @@ class QuestionRepository
         $model->description = $data['description'];
         $model->users_id = $data['users_id'];
 
-        return $model->save();
+        $model->save();
+
+        return $model;
     }
 }

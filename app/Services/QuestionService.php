@@ -37,8 +37,9 @@ class QuestionService
 
     /**
      * @param array $data
+     * @return Question
      */
-    public function create(array $data)
+    public function create(array $data): Question
     {
         $data = array_merge(
             [
@@ -47,6 +48,6 @@ class QuestionService
             $data
         );
 
-        $this->questionRepository->create($data);
+        return $this->questionRepository->create($data);
     }
 }

@@ -40,4 +40,18 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function bear(): UserFactory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'id' => 4,
+                'name' => 'Bear',
+                'email' => 'bear@math-sharing.org',
+                'provider_id' => '',
+                'platform' => '',
+                'avatar' => '',
+            ];
+        });
+    }
 }
