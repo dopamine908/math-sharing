@@ -18,11 +18,10 @@ class QuestionRepositoryTest extends TestCase
         //Arrange
         $this->sut = app(QuestionRepository::class);
 
-        $questions = Question::factory()
-            ->count(3)
-            ->create();
-
         $id = 2;
+
+        $questions = Question::factory()
+            ->create(['id' => $id]);
 
         //Act
         $actual = $this->sut->find($id);
