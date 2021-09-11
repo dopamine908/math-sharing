@@ -14,7 +14,7 @@ class UserRepositoryTest extends TestCase
     /**
      * @test
      */
-    public function Given_user_data_When_call_createUser_Then_check_insert_success_and_return_model_user()
+    public function GivenUserData_WhenCallCreateUser_ThenCheckInsertSuccessAndReturnModelUser()
     {
         $this->specify('測試 createUser，新增使用者成功，確認資料庫有該使用者資料＋確認回傳為 App\Models\User', function () {
             // Arrange
@@ -52,7 +52,7 @@ class UserRepositoryTest extends TestCase
     /**
      * @test
      */
-    public function Given_user_in_db_When_call_getUserByEmailAndPlatform_Then_check_get_the_user()
+    public function GivenUserInDb_WhenCallGetUserByEmailAndPlatform_ThenCheckGetTheUser()
     {
         $this->specify('測試 getUserByEmailAndPlatform，當使用者存在，成功取得使用者', function () {
             // Arrange
@@ -102,7 +102,7 @@ class UserRepositoryTest extends TestCase
     /**
      * @test
      */
-    public function Given_user_in_db_When_call_getUserByEmailAndPlatform_Then_user_not_found_return_null()
+    public function GivenUserInDb_WhenCallGetUserByEmailAndPlatform_ThenUserNotFoundReturnNull()
     {
         $this->specify('測試 getUserByEmailAndPlatform，當使用者不存在，回傳 null', function () {
             // Arrange
