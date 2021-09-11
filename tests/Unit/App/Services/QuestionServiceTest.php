@@ -3,6 +3,7 @@
 namespace Tests\Unit\App\Services;
 
 use App\Models\Question;
+use App\Models\User;
 use App\Repositories\QuestionRepository;
 use App\Services\QuestionService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -52,5 +53,32 @@ class QuestionServiceTest extends TestCase
 
         //Act
         $actual = $this->sut->read(1);
+    }
+
+    /**
+     * @test
+     */
+    public function GivenData_WhenCreate_ThenCallRepository()
+    {
+        //Arrange
+        $userId = 4;
+        $user = User::factory()->make(['id' => $userId]);
+        $this->actingAs($user);
+
+        $spyQuestionRepository = $this->spy(QuestionRepository::class);
+        $data = [
+            'description' => 'abc',
+            'users_id' => $userId,
+        ];
+
+        $this->sut = $this->app->make(QuestionService::class);
+
+        //Act
+        $this->sut->create($data);
+
+        //Assert
+        $spyQuestionRepository->shouldHaveReceived('create')
+            ->once()
+            ->with($data);
     }
 }

@@ -34,4 +34,19 @@ class QuestionService
 
         return $model;
     }
+
+    /**
+     * @param array $data
+     */
+    public function create(array $data)
+    {
+        $data = array_merge(
+            [
+                'users_id' => auth()->user()->id,
+            ],
+            $data
+        );
+
+        $this->questionRepository->create($data);
+    }
 }
