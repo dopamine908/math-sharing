@@ -1,20 +1,13 @@
 <?php
 
-namespace Tests\Feature\App\Http\Controllers;
+namespace Tests\Feature\Api\Questions;
 
-use App\Http\Controllers\QuestionController;
 use App\Models\Question;
-use Illuminate\Http\Request;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\Feature\TestCase;
 
-class QuestionControllerTest extends TestCase
+class GetTest extends TestCase
 {
-    /**
-     * @var QuestionController $sut
-     */
-    protected QuestionController $sut;
-
     /**
      * @test
      */
@@ -36,5 +29,20 @@ class QuestionControllerTest extends TestCase
                         ->etc();
                 }
             );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNotExistsId_WhenShow_ThenReturnNotFound()
+    {
+        //Arrange
+        $id = 1;
+
+        //Act
+        $response = $this->get("/api/questions/$id");
+
+        //Assert
+        $response->assertNotFound();
     }
 }
