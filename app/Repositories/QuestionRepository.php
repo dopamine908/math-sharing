@@ -20,4 +20,17 @@ class QuestionRepository
     {
         return $this->model::query()->find($id);
     }
+
+    public function create(array $data): bool
+    {
+        /**
+         * @var Question $model
+         */
+        $model = new $this->model();
+
+        $model->description = $data['description'];
+        $model->users_id = $data['users_id'];
+
+        return $model->save();
+    }
 }

@@ -47,4 +47,24 @@ class QuestionRepositoryTest extends TestCase
         //Assert
         $this->assertNull($actual);
     }
+
+    /**
+     * @test
+     */
+    public function GivenData_WhenCreate_ThenInsertToDatabase()
+    {
+        //Arrange
+        $data = [
+            'description' => 'abc',
+            'users_id' => 4,
+        ];
+
+        $this->sut = app(QuestionRepository::class);
+
+        //Act
+        $actual = $this->sut->create($data);
+
+        //Assert
+        $this->assertDatabaseHas('questions', $data);
+    }
 }
