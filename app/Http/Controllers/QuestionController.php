@@ -83,8 +83,24 @@ class QuestionController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     *
+     * @todo gate for resourse / resource not found
+     */
     public function destroy(Request $request, int $id): JsonResponse
     {
-        return response()->json([], Response::HTTP_NO_CONTENT);
+        try {
+            $this->questionService->delete($id);
+
+            return response()->json(
+                [],
+                Response::HTTP_NO_CONTENT
+            );
+        } catch (\Throwable $th) {
+            return $this->errorHandling($th);
+        }
     }
 }
