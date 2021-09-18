@@ -61,4 +61,15 @@ class QuestionService
     {
         return $this->questionRepository->update($id, $data);
     }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $this->questionRepository->delete($id);
+
+        return true;
+    }
 }

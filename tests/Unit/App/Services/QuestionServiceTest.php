@@ -104,4 +104,25 @@ class QuestionServiceTest extends TestCase
             ->once()
             ->with($id, $updateData);
     }
+
+    /**
+     * @test
+     */
+    public function GivenId_WhenDelete_ThenCallRepository()
+    {
+        //Arrange
+        $id = 100;
+
+        $spyQuestionRepository = $this->spy(QuestionRepository::class);
+
+        $this->sut = $this->app->make(QuestionService::class);
+
+        //Act
+        $this->sut->delete($id);
+
+        //Assert
+        $spyQuestionRepository->shouldHaveReceived('delete')
+            ->once()
+            ->with($id);
+    }
 }
