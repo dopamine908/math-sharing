@@ -69,7 +69,7 @@ class QuestionController extends Controller
     {
         try {
             $question = $this->questionService->read($id);
-//            $this->authorize('update', $question);
+            $this->authorize('update', $question);
 
             $updateData = $request->get('data');
             $question = $this->questionService->update($id, $updateData);

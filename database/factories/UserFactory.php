@@ -14,6 +14,8 @@ class UserFactory extends Factory
      */
     protected $model = User::class;
 
+    protected static int $id = 0;
+
     /**
      * Define the model's default state.
      *
@@ -21,7 +23,10 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        self::$id++;
+
         return [
+            'id' => self::$id,
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'platform' => 'Google',
@@ -44,9 +49,11 @@ class UserFactory extends Factory
 
     public function bear(): UserFactory
     {
+        self::$id++;
+
         return $this->state(function (array $attributes) {
             return [
-                'id' => 4,
+                'id' => self::$id,
                 'name' => 'Bear',
                 'email' => 'bear@math-sharing.org',
                 'provider_id' => '',

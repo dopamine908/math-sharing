@@ -57,12 +57,35 @@ class PatchTest extends TestCase
         //Act
         $response = $this
             ->patch("/api/questions/$id", [
-                'data' => [
-                    'description' => 'www',
-                ],
+                'data' => [],
             ]);
 
         //Assert
         $response->assertNotFound();
+    }
+
+    /**
+     * @test
+     */
+    public function GivenUpdateDataButNotCreateUser_WhenUpdate_ThenReturnForbidden()
+    {
+        //Arrange
+        $createUser = User::factory()->create();
+        $notCreateUser = User::factory()->create();
+        $question = Question::factory()->create(
+            [
+                'users_id' => $createUser->id,
+            ]
+        );
+
+        //Act
+        $response = $this
+            ->be($notCreateUser)
+            ->patch("/api/questions/{$question->id}", [
+                'data' => [],
+            ]);
+
+        //Assert
+        $response->assertForbidden();
     }
 }
