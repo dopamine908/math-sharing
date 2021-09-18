@@ -64,12 +64,13 @@ class QuestionController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     *
-     * @todo gate for resourse / resource not found
      */
     public function update(Request $request, int $id): JsonResponse
     {
         try {
+            $question = $this->questionService->read($id);
+//            $this->authorize('update', $question);
+
             $updateData = $request->get('data');
             $question = $this->questionService->update($id, $updateData);
 
@@ -87,8 +88,6 @@ class QuestionController extends Controller
      * @param Request $request
      * @param int $id
      * @return JsonResponse
-     *
-     * @todo gate for resourse
      */
     public function destroy(Request $request, int $id): JsonResponse
     {

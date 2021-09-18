@@ -45,4 +45,24 @@ class PatchTest extends TestCase
                 }
             );
     }
+
+    /**
+     * @test
+     */
+    public function GivenNotExistId_WhenUpdate_ReturnNotFound()
+    {
+        //Arrange
+        $id = 1;
+
+        //Act
+        $response = $this
+            ->patch("/api/questions/$id", [
+                'data' => [
+                    'description' => 'www',
+                ],
+            ]);
+
+        //Assert
+        $response->assertNotFound();
+    }
 }
