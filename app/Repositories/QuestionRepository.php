@@ -36,7 +36,12 @@ class QuestionRepository
         return $model;
     }
 
-    public function update(int $id, array $updateData)
+    /**
+     * @param int $id
+     * @param array $updateData
+     * @return Question
+     */
+    public function update(int $id, array $updateData): Question
     {
         $model = $this->model->find($id);
 

@@ -52,8 +52,13 @@ class QuestionService
         return $this->questionRepository->create($data);
     }
 
-    public function update(int $id, array $data)
+    /**
+     * @param int $id
+     * @param array $data
+     * @return Question
+     */
+    public function update(int $id, array $data): Question
     {
-        $this->questionRepository->update($id, $data);
+        return $this->questionRepository->update($id, $data);
     }
 }

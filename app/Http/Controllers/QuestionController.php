@@ -62,13 +62,18 @@ class QuestionController extends Controller
 
     public function update(Request $request, int $id)
     {
-        return response()->json(
-            [
-                'data' => [
-                    'description' => 'after updated.',
-                ],
-            ]
-        );
+        try {
+            $updateData = $request->get('data');
+            $question = $this->questionService->update($id, $updateData);
+
+            return response()->json(
+                [
+                    'data' => $question,
+                ]
+            );
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     public function destroy(Request $request, int $id)
