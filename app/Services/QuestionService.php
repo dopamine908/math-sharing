@@ -51,4 +51,9 @@ class QuestionService
 
         return $this->questionRepository->create($data);
     }
+
+    public function update(array $data)
+    {
+        $this->questionRepository->update($data);
+    }
 }

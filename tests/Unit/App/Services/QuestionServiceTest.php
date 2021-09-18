@@ -80,4 +80,27 @@ class QuestionServiceTest extends TestCase
             ->once()
             ->with($data);
     }
+
+    /**
+     * @test
+     */
+    public function GivenUpdateData_WhenUpdate_ThenCallRepository()
+    {
+        //Arrange
+        $updateData = [
+            'description' => 'hello again',
+        ];
+
+        $spyQuestionRepository = $this->spy(QuestionRepository::class);
+
+        $this->sut = $this->app->make(QuestionService::class);
+
+        //Act
+        $this->sut->update($updateData);
+
+        //Assert
+        $spyQuestionRepository->shouldHaveReceived('update')
+            ->once()
+            ->with($updateData);
+    }
 }
