@@ -66,4 +66,29 @@ class QuestionRepositoryTest extends TestCase
         //Assert
         $this->assertDatabaseHas('questions', $data);
     }
+
+    /**
+     * @test
+     */
+    public function GivenUpdateData_WhenUpdate_ThenUpdateToDatabase()
+    {
+        //Arrange
+        $question = Question::factory()->create(
+            [
+                'description' => 'original',
+            ]
+        );
+
+        $updatedData = [
+            'description' => 'after updated.',
+        ];
+
+        $this->sut = app(QuestionRepository::class);
+
+        //Act
+        $this->sut->update($question->id, $updatedData);
+
+        //Assert
+        $this->assertDatabaseHas('questions', $updatedData);
+    }
 }

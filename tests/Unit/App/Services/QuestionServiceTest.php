@@ -87,6 +87,7 @@ class QuestionServiceTest extends TestCase
     public function GivenUpdateData_WhenUpdate_ThenCallRepository()
     {
         //Arrange
+        $id = 100;
         $updateData = [
             'description' => 'hello again',
         ];
@@ -96,11 +97,11 @@ class QuestionServiceTest extends TestCase
         $this->sut = $this->app->make(QuestionService::class);
 
         //Act
-        $this->sut->update($updateData);
+        $this->sut->update($id, $updateData);
 
         //Assert
         $spyQuestionRepository->shouldHaveReceived('update')
             ->once()
-            ->with($updateData);
+            ->with($id, $updateData);
     }
 }

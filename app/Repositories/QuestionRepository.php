@@ -35,4 +35,17 @@ class QuestionRepository
 
         return $model;
     }
+
+    public function update(int $id, array $updateData)
+    {
+        $model = $this->model->find($id);
+
+        foreach ($updateData as $key => $value) {
+            $model->$key = $value;
+        }
+
+        $model->save();
+
+        return $model;
+    }
 }
