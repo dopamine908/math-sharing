@@ -15,7 +15,7 @@ class PatchTest extends TestCase
     public function GivenUpdateData_WhenUpdate_ThenReturnUpdateResult()
     {
         //Arrange
-        $user = User::factory()->bear()->create();
+        $user = User::factory()->create();
 
         $question = Question::factory()->create(
             [
@@ -49,7 +49,7 @@ class PatchTest extends TestCase
     /**
      * @test
      */
-    public function GivenNotExistId_WhenUpdate_ReturnNotFound()
+    public function GivenNotExistId_WhenUpdate_ThenReturnNotFound()
     {
         //Arrange
         $id = 1;

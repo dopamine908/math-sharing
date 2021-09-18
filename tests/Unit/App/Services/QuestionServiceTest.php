@@ -61,7 +61,7 @@ class QuestionServiceTest extends TestCase
     public function GivenData_WhenCreate_ThenCallRepository()
     {
         //Arrange
-        $user = User::factory()->bear()->make();
+        $user = User::factory()->make();
         $this->actingAs($user);
 
         $spyQuestionRepository = $this->spy(QuestionRepository::class);
