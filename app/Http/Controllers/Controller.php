@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -21,16 +22,32 @@ class Controller extends BaseController
     {
         if ($th instanceof ModelNotFoundException) {
             return response()
-                ->json([
-                           'message' => 'Resource Not Found',
-                       ], Response::HTTP_NOT_FOUND);
+                ->json(
+                    [
+                        'message' => 'Resource Not Found',
+                    ],
+                    Response::HTTP_NOT_FOUND
+                );
         }
 
         Log::error($th);
 
+        if ($th instanceof AuthorizationException) {
+            return response()
+                ->json(
+                    [
+                        'message' => 'Forbidden',
+                    ],
+                    Response::HTTP_FORBIDDEN
+                );
+        }
+
         return response()
-            ->json([
-                       'message' => 'Something went wrong',
-                   ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            ->json(
+                [
+                    'message' => 'Something went wrong',
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
     }
 }

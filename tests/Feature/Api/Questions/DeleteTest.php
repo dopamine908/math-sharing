@@ -14,8 +14,12 @@ class DeleteTest extends TestCase
     public function GivenDeleteId_WhenDestroy_ThenReturnDeletedStatusCode()
     {
         //Arrange
-        $question = Question::factory()->create();
         $user = User::factory()->bear()->create();
+        $question = Question::factory()->create(
+            [
+                'users_id' => $user->id,
+            ]
+        );
         $id = $question->id;
 
         //Act
@@ -43,5 +47,30 @@ class DeleteTest extends TestCase
 
         //Assert
         $response->assertNotFound();
+    }
+
+    /**
+     * @test
+     */
+    public function GivenDeleteIdButNotCreateUser_WhenDestroy_ThenReturnForbidden()
+    {
+        //Arrange
+        $user = User::factory()->bear()->create();
+        $createUser = User::factory()->create();
+
+        $question = Question::factory()->create(
+            [
+                'users_id' => $createUser->id,
+            ]
+        );
+        $id = $question->id;
+
+        //Act
+        $response = $this
+            ->be($user)
+            ->delete("/api/questions/$id");
+
+        //Assert
+        $response->assertForbidden();
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\QuestionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class QuestionController extends Controller
@@ -95,7 +94,8 @@ class QuestionController extends Controller
     {
         try {
             $question = $this->questionService->read($id);
-//            Gate::authorize('delete', $question);
+            $this->authorize('delete', $question);
+
             $this->questionService->delete($id);
 
             return response()->json(

@@ -22,11 +22,11 @@ class QuestionPolicy
 
     public function update(User $user, Question $question): bool
     {
-        return $user->id === $question->users_id;
+        return $user->id == $question->users_id;
     }
 
     public function delete(User $user, Question $question): bool
     {
-        return $user->id === $question->users_id;
+        return $user->id == $question->users_id;
     }
 }
