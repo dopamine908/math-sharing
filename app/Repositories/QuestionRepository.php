@@ -53,4 +53,14 @@ class QuestionRepository
 
         return $model;
     }
+
+    /**
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $this->model::query()
+            ->where('id', $id)
+            ->delete();
+    }
 }

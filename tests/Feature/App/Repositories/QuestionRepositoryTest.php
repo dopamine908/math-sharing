@@ -91,4 +91,25 @@ class QuestionRepositoryTest extends TestCase
         //Assert
         $this->assertDatabaseHas('questions', $updatedData);
     }
+
+    /**
+     * @test
+     */
+    public function GivenId_WhenDelete_ThenDeleteToDatabase()
+    {
+        //Arrange
+        $question = Question::factory()->create();
+
+        $id = $question->id;
+
+        $this->sut = app(QuestionRepository::class);
+
+        //Act
+        $this->sut->delete($id);
+
+        //Assert
+        $this->assertDatabaseMissing('questions', [
+            'id' => $id,
+        ]);
+    }
 }
