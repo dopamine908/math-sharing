@@ -14,7 +14,6 @@ class PostTest extends TestCase
     public function GivenData_WhenStore_ThenReturnCreated()
     {
         //Arrange
-        $userId = 4;
         $user = User::factory()->bear()->create();
 
         $description = 'testing';

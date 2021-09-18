@@ -59,4 +59,19 @@ class QuestionController extends Controller
             return $this->errorHandling($th);
         }
     }
+
+    public function update(Request $request, int $id)
+    {
+        return response()->json(
+            [
+                'data' => [
+                    'description' => 'after updated.',
+                ],
+            ]
+        );
+    }
+
+    public function destroy(Request $request, int $id)
+    {
+    }
 }
