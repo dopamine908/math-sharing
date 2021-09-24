@@ -25,4 +25,17 @@ class posts << (T,#ADD1B2) >>{
     updated_at : timestamp
 }
 users::id “1” -- “*" posts::users_id
+
+class questions << (T,#ADD1B2) >>{
+    id
+    --
+    description : string
+    --
+    users_id : int
+    --
+    created_at : timestamp
+    --
+    updated_at : timestamp
+}
+users::id “1” -- “*" questions::users_id
 @enduml
