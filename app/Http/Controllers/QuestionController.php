@@ -71,7 +71,9 @@ class QuestionController extends Controller
             $question = $this->questionService->read($id);
             $this->authorize('update', $question);
 
-            $updateData = $request->get('data');
+            $updateData = [
+                'description' => $request->get('description'),
+            ];
             $question = $this->questionService->update($id, $updateData);
 
             return response()->json(
