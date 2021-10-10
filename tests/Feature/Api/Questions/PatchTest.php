@@ -30,9 +30,7 @@ class PatchTest extends TestCase
         $response = $this
             ->be($user)
             ->patch("/api/questions/{$question->id}", [
-                'data' => [
-                    'description' => $expected,
-                ],
+                'description' => $expected,
             ]);
 
         //Assert
