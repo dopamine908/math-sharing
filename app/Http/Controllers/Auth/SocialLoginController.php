@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\Authentication\SocialLoginService;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Laravel\Socialite\Facades\Socialite;
@@ -23,6 +23,7 @@ class SocialLoginController extends Controller
         if ($socialPlatform !== 'google') {
             return Redirect::route('home', ['error' => 'wrong_social_platform']);
         }
+
         return Socialite::driver($socialPlatform)->redirect();
     }
 
@@ -39,7 +40,7 @@ class SocialLoginController extends Controller
         return response(view('login_success')->render())
             ->withHeaders(
                 [
-                    'Authorization' => "Bearer {$token}"
+                    'Authorization' => "Bearer {$token}",
                 ]
             );
     }
@@ -51,9 +52,10 @@ class SocialLoginController extends Controller
         if ($isLogin) {
             Auth::guard('api')->logout();
         }
+
         return Response::json(
             [
-                'message' => 'already logout'
+                'message' => 'already logout',
             ],
             200
         );
