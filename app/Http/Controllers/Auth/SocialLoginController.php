@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\Authentication\SocialLoginService;
-use Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Laravel\Socialite\Facades\Socialite;
@@ -25,6 +23,7 @@ class SocialLoginController extends Controller
         if ($socialPlatform !== 'google') {
             return Redirect::route('home', ['error' => 'wrong_social_platform']);
         }
+
         return Socialite::driver($socialPlatform)->redirect();
     }
 
@@ -35,34 +34,15 @@ class SocialLoginController extends Controller
         }
 
         $socialiteUser = Socialite::driver($socialPlatform)->user();
-
         $user = $this->SocialLoginService->findOrCreateUser($socialiteUser, $socialPlatform);
+        $token = Auth::guard('api')->tokenById($user->id);
 
-        // TODO 先用 user id 當 ott ，之後要換成有時效性的 ott
-        $oneTimeToken = Crypt::encrypt($user->id);
-
-        return Redirect::route('social-login.success', ['ott' => $oneTimeToken]);
-    }
-
-    public function handleSocialPlatformLoginSuccess()
-    {
-        return view('login_success');
-    }
-
-    public function getAccessToken(Request $request)
-    {
-        // TODO 流程要再考量多一點的 edge case ，像是 decrypt 失敗或是 token 產失敗
-        $userId = Crypt::decrypt($request->ott);
-        $token = Auth::guard('api')->tokenById($userId);
-
-        return Response::json(
-            [
-                'access_token' => $token,
-                'token_type' => 'bearer',
-                'expires_in' => Auth::guard('api')->factory()->getTTL() * 60 //sec
-            ],
-            200
-        );
+        return response(view('login_success')->render())
+            ->withHeaders(
+                [
+                    'Authorization' => "Bearer {$token}",
+                ]
+            );
     }
 
     public function logout()
@@ -72,13 +52,12 @@ class SocialLoginController extends Controller
         if ($isLogin) {
             Auth::guard('api')->logout();
         }
+
         return Response::json(
             [
-                'message' => 'already logout'
+                'message' => 'already logout',
             ],
             200
         );
     }
-
-
 }
