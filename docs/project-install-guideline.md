@@ -152,3 +152,10 @@ ex:
     mysql
         platform: 'linux/x86_64'
 ```
+---
+## docker compose V2 名稱修復
+```
+project_install.sh
+    math-sharing_workspace_1 -> math-sharing-workspace-1
+    // 底線改稱中划線
+```
