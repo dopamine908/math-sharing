@@ -142,3 +142,20 @@ composer install
 ```
 https://dev.math-sharing.com:58443
 ```
+
+---
+## Mac M1 環境 docker Mysql container fail 修復
+```
+laradock-setting -> docker-compose.yml 482~502
+加入 platform: 'linux/x86_64'  以x86_64指令集為優先
+ex:
+    mysql
+        platform: 'linux/x86_64'
+```
+---
+## docker compose V2 名稱修復
+```
+project_install.sh
+    math-sharing_workspace_1 -> math-sharing-workspace-1
+    // 底線改稱中划線
+```
