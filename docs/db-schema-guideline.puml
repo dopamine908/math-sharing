@@ -39,10 +39,10 @@ class questions << (T,#ADD1B2) >>{
 }
 users::id “1” -- “*" questions::users_id
 
-class questions_tag << (T,#ADD1B2) >>{
+class question_tag << (T,#ADD1B2) >>{
     id
     --
-    questions_id : int
+    question_id : int
     --
     tag_id : int
     --
@@ -50,12 +50,23 @@ class questions_tag << (T,#ADD1B2) >>{
     --
     updated_at : timestamp
 }
-questions::id “1” -- “*" questions_tag::questions_id
+questions::id “1” -- “*" question_tag::question_id
 
 class tag << (T,#ADD1B2) >>{
     id
     --
     name : string
+    --
+    created_at : timestamp
+    --
+    updated_at : timestamp
+}
+question_tag::tag_id “1” -- “1" tag::id
+
+class question_category << (T,#ADD1B2) >>{
+    id
+    --
+    question_id : int
     --
     category_id : int
     --
@@ -63,7 +74,8 @@ class tag << (T,#ADD1B2) >>{
     --
     updated_at : timestamp
 }
-questions_tag::tag_id “1” -- “1" tag::id
+questions::id “1” -- “*" question_category::question_id
+
 
 class category << (T,#ADD1B2) >>{
     id
@@ -76,5 +88,5 @@ class category << (T,#ADD1B2) >>{
     --
     updated_at : timestamp
 }
-tag::category_id “1” -- “1" category::id
+question_category::category_id “1” -- “1" category::id
 @enduml
