@@ -18,3 +18,4 @@ yarn-error.log
 /reports
 /.php-cs-fixer.cache
 /clinet-side/node_modules/
+/public/angular/

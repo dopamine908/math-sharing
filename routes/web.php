@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::view('', 'index');
 Route::view('home', 'index');
 
 Route::get('/backend_home', function () {
