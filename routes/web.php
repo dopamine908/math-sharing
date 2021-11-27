@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::view('home', 'index');
+
+Route::get('/backend_home', function () {
     return view('welcome');
 })->name('home');
 
