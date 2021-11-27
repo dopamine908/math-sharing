@@ -1,0 +1,30 @@
+<div class="w-full px-5 box-border h-3/4">
+  <p class="mb-3 text-green-700">進階搜尋篩選項目</p>
+  <div class="shadow-lg p-3 h-5/6" >
+    <div class=" overflow-auto h-5/6">
+      <mat-list role="list">
+        <ng-container *ngTemplateOutlet="recursiveListTemplate; context:{ list: list }"></ng-container>
+      </mat-list>
+    </div>
+    <div class="mt-2 flex justify-end px-5">
+      <span class="mr-2">
+        <button mat-raised-button class="">清除</button>
+      </span>
+      <span>
+        <button mat-raised-button color="accent">搜尋</button>
+      </span>
+    </div>
+  </div>
+</div>
+<ng-template #recursiveListTemplate let-list="list">
+  <mat-list-item role="listitem" *ngFor="let item of list" [style.height]="'auto'" >
+    <div class="w-full h-full py-2">
+      <mat-checkbox [color]="'primary'">{{item.name}}</mat-checkbox>
+      <mat-list role="list" *ngIf="item.children && item.children.length > 0">
+        <ng-container *ngTemplateOutlet="recursiveListTemplate; context:{ list: item.children }">
+        </ng-container>
+        <!-- <mat-divider></mat-divider> -->
+      </mat-list>
+    </div>
+  </mat-list-item>
+</ng-template>

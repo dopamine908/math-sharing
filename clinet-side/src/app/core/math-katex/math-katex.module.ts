@@ -4,14 +4,13 @@ import {KatexModule} from 'ng-katex';
 
 
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        KatexModule
-    ],
-    exports: [
-        KatexModule
-    ]
+  declarations: [],
+  imports: [
+    CommonModule,
+    KatexModule
+  ],
+  exports: [
+    KatexModule
+  ]
 })
-export class MathKatexModule {
-}
+export class MathKatexModule { }

@@ -1,0 +1,11 @@
+
+
+<div class="relative" >
+  <div class="inline-flex relative">
+    <input [(ngModel)]="ngModel" (ngModelChange)="onChange($event)" placeholder="搜尋主題"
+      class="focus:border-green-500 focus:outline-none appearance-none outline-none focus-visible:border-green-500 w-96 h-10 border border-solid border-gray-400 rounded-3xl box-border pl-4 pr-28 py-2"
+      type="text" />
+    <p class="text-green-700 absolute right-14 top-3 cursor-pointer" (click)="onClick()">進階搜尋</p>
+    <mat-icon class="text-green-500  absolute right-5 top-2">search</mat-icon>
+  </div>
+</div>

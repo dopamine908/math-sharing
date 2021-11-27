@@ -1,3 +1,15 @@
 {
-    "HELLO": "你好"
+  "HELLO":"你好",
+  "WELCOME":"歡迎來到",
+  "INPUT":{
+    "TYPE_HERE_YOUR":"在這裡輸入你的"
+  },
+  "NOTE":{
+    "BYPASSES_SANITIZATION":"安全說明：這繞過了 Angular DOM 安全機制"
+  },
+  "AUTH":{
+    "LOGIN":"LOGIN",
+    "LOGIN_BY_GOOGLE_ACCOUNT":"請使用 google 帳號進行登入",
+    "LOGIN_BY_GOOGLE":"使用 google 登入"
+  }
 }

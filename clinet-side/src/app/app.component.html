@@ -1,22 +1,2 @@
-<div class="container mx-auto px-4">
-    <h1>
-        Welcome to <a [href]="url" target="_blank">{{title}}</a> demo app!
-    </h1>
-    <div>{{ 'HELLO' | translate }}</div>
-    <b>Equation: </b>
-    <h2>Type here your equation:</h2>
-    <p><input [(ngModel)]="equation" type="text"></p>
-    <p>
-        <ng-katex [equation]="equation" [options]="options"></ng-katex>
-    </p>
-    <hr/>
-    <b>Paragraph: </b>
-    <h2>Type here your paragraph:</h2>
-    <p><textarea [(ngModel)]="paragraph" rows="6"></textarea></p>
-    <ng-katex-paragraph [paragraph]="paragraph"></ng-katex-paragraph>
-    <hr/>
-    <b>HTML: (Security Note: this bypasses Angular DOM Sanitization)</b>
-    <h2>Type here your HTML:</h2>
-    <p><textarea [(ngModel)]="html" rows="6"></textarea></p>
-    <ng-katex-html [html]="html"></ng-katex-html>
-</div>
+
+<router-outlet></router-outlet>
