@@ -51,9 +51,11 @@ class PatchTest extends TestCase
     {
         //Arrange
         $id = 1;
+        $anyUser = User::factory()->create();
 
         //Act
         $response = $this
+            ->be($anyUser)
             ->patch("/api/questions/$id", [
                 'data' => [],
             ]);
