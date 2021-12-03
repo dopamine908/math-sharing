@@ -4,9 +4,6 @@ namespace App\Services;
 
 use App\Models\Question;
 use App\Repositories\QuestionRepository;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class QuestionService
@@ -20,11 +17,9 @@ class QuestionService
 
     /**
      * @param int $id
-     * @return Model|Collection|Builder|array
-     *
-     * @throws ModelNotFoundException
+     * @return Question
      */
-    public function read(int $id): Model|Collection|Builder|array
+    public function read(int $id): Question
     {
         $model = $this->questionRepository->find($id);
 
@@ -41,7 +36,6 @@ class QuestionService
      */
     public function create(array $data): Question
     {
-        //TODO: ask how to mock user on postman
         $data = array_merge(
             [
                 'users_id' => auth()->user()->id ?? 0,

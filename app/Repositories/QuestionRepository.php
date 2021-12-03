@@ -16,9 +16,13 @@ class QuestionRepository
         $this->model = $model;
     }
 
-    public function find(int $id): Model|Collection|Builder|array|null
+    public function find(int $id): Question
     {
-        return $this->model::query()->find($id);
+        /**
+         * @var Question $model
+         */
+        $model = $this->model::query()->find($id);
+        return $model;
     }
 
     public function create(array $data): Question
@@ -36,14 +40,12 @@ class QuestionRepository
         return $model;
     }
 
-    /**
-     * @param int $id
-     * @param array $updateData
-     * @return Question
-     */
     public function update(int $id, array $updateData): Question
     {
-        $model = $this->model->find($id);
+        /**
+         * @var Question $model
+         */
+        $model = $this->model::query()->find($id);
 
         foreach ($updateData as $key => $value) {
             $model->$key = $value;

@@ -48,7 +48,6 @@ class QuestionController extends Controller
                 ]
             );
 
-            //TODO: use transformer to hide some information.
             return response()->json(
                 [
                     'data' => $question,
