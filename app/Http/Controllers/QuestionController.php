@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Services\QuestionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,12 +25,14 @@ class QuestionController extends Controller
     public function show(Request $request, int $id): JsonResponse
     {
         try {
-            $data = $this->questionService->read($id);
+            $question = $this->questionService->read($id);
 
             return response()
-                ->json([
-                           'data' => $data,
-                       ]);
+                ->json(
+                    [
+                        'data' => new QuestionResource($question),
+                    ]
+                );
         } catch (\Throwable $th) {
             return $this->errorHandling($th);
         }
@@ -50,7 +53,7 @@ class QuestionController extends Controller
 
             return response()->json(
                 [
-                    'data' => $question,
+                    'data' => new QuestionResource($question),
                 ],
                 Response::HTTP_CREATED
             );
@@ -77,7 +80,7 @@ class QuestionController extends Controller
 
             return response()->json(
                 [
-                    'data' => $question,
+                    'data' => new QuestionResource($question),
                 ]
             );
         } catch (\Throwable $th) {

@@ -16,12 +16,13 @@ class QuestionRepository
         $this->model = $model;
     }
 
-    public function find(int $id): Question
+    public function find(int $id): ?Question
     {
         /**
-         * @var Question $model
+         * @var ?Question $model
          */
         $model = $this->model::query()->find($id);
+
         return $model;
     }
 
