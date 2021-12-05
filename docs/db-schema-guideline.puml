@@ -36,8 +36,6 @@ class questions << (T,#ADD1B2) >>{
     created_at : timestamp
     --
     updated_at : timestamp
-    --
-    likes : int
 }
 users::id “1” -- “*" questions::users_id
 @enduml

@@ -24,7 +24,6 @@ class QuestionFactory extends Factory
         return [
             'description' => $this->faker->paragraph(),
             'users_id' => 0,
-            'likes' => 0
         ];
     }
 }

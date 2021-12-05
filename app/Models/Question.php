@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $description
  * @property int $users_id
- * @property int $likes
  * @property CarbonImmutable $created_at
  * @property CarbonImmutable $updated_at
  */
