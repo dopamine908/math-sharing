@@ -19,6 +19,8 @@ class CreateLikesTable extends Migration
             $table->string('resource', 63);
             $table->bigInteger('resource_id');
             $table->timestamp('created_at')->useCurrent();
+
+            $table->index(['resource', 'resource_id']);
         });
     }
 
