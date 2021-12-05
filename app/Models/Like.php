@@ -5,26 +5,25 @@ namespace App\Models;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
- * @property string $description
  * @property int $users_id
+ * @property string $resource
+ * @property int $resource_id
  * @property CarbonImmutable $created_at
- * @property CarbonImmutable $updated_at
  */
-class Question extends Model
+class Like extends Model
 {
     use HasFactory;
 
     protected $casts = [
         'created_at' => 'immutable_datetime',
-        'updated_at' => 'immutable_datetime',
     ];
 
-    public function likes(): HasMany
+    public function question(): BelongsTo
     {
-        return $this->hasMany(Like::class);
+        return $this->belongsTo(Question::class);
     }
 }

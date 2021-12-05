@@ -13,18 +13,6 @@ class users << (T,#ADD1B2) >>{
     --
     updated_at : timestamp
 }
-class posts << (T,#ADD1B2) >>{
-    id
-    --
-    users_id : int
-    --
-    content : string
-    --
-    created_at : timestamp
-    --
-    updated_at : timestamp
-}
-users::id “1” -- “*" posts::users_id
 
 class questions << (T,#ADD1B2) >>{
     id
@@ -37,5 +25,20 @@ class questions << (T,#ADD1B2) >>{
     --
     updated_at : timestamp
 }
-users::id “1” -- “*" questions::users_id
+users::id "1" -- "*" questions::users_id
+
+class likes << (T,#ADD1B2) >>{
+    id
+    --
+    users_id : int
+    --
+    resource : string
+    --
+    resource_id : int
+    --
+    created_at : timestamp
+}
+users::id "1" -- "*" likes::users_id
+questions::id "1" -- "*" likes::resource_id
+
 @enduml
