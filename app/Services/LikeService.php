@@ -14,7 +14,6 @@ class LikeService
         $this->likeRepository = $likeRepository;
     }
 
-    //create
     public function create(array $data): Like
     {
         $data = array_merge(
@@ -27,5 +26,10 @@ class LikeService
         return $this->likeRepository->create($data);
     }
 
-    //delete
+    public function delete(int $id): bool
+    {
+        $this->likeRepository->delete($id);
+
+        return true;
+    }
 }
