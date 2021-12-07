@@ -28,4 +28,16 @@ class LikeRepository
 
         return $model;
     }
+
+    public function delete(int $id): bool
+    {
+        /**
+         * @var Like $like
+         */
+        $like = $this->model->find($id);
+
+        $like->delete();
+
+        return true;
+    }
 }

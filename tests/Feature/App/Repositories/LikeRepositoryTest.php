@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\App\Repositories;
 
+use App\Models\Like;
 use App\Repositories\LikeRepository;
 use Tests\Feature\TestCase;
 
@@ -31,5 +32,25 @@ class LikeRepositoryTest extends TestCase
 
         //Assert
         $this->assertDatabaseHas('likes', $data);
+    }
+
+    /**
+     * @test
+     */
+    public function GivenId_WhenDelete_ThenDeleteDatabaseData()
+    {
+        //Arrange
+        $like = Like::factory()->create();
+        $id = $like->id;
+
+        $this->sut = app(LikeRepository::class);
+
+        //Act
+        $this->sut->delete($id);
+
+        //Assert
+        $this->assertDatabaseMissing('likes', [
+            'id' => $id,
+        ]);
     }
 }
