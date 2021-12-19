@@ -19,19 +19,18 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    protected function validationExceptionHandling(ValidationException $exception): JsonResponse
-    {
-        return response()
-            ->json(
-                [
-                    'message' => $exception->errors(),
-                ],
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-    }
-
     protected function errorHandling(\Throwable $th): JsonResponse
     {
+        if ($th instanceof ValidationException) {
+            return response()
+                ->json(
+                    [
+                        'message' => $th->errors(),
+                    ],
+                    Response::HTTP_UNPROCESSABLE_ENTITY
+                );
+        }
+
         if ($th instanceof ModelNotFoundException) {
             return response()
                 ->json(

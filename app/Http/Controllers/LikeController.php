@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\LikeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -45,8 +44,6 @@ class LikeController extends Controller
                     ],
                     Response::HTTP_CREATED
                 );
-        } catch (ValidationException $exception) {
-            return $this->validationExceptionHandling($exception);
         } catch (Throwable $th) {
             return $this->errorHandling($th);
         }
