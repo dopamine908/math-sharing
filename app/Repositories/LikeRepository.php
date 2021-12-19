@@ -40,4 +40,14 @@ class LikeRepository
 
         return true;
     }
+
+    public function findOrFail(int $id): ?Like
+    {
+        /**
+         * @var ?Like $model
+         */
+        $model = $this->model::query()->find($id);
+
+        return $model;
+    }
 }

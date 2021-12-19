@@ -53,4 +53,24 @@ class LikeRepositoryTest extends TestCase
             'id' => $id,
         ]);
     }
+
+    /**
+     * @test
+     */
+    public function GivenExistId_WhenFindOrFail_ThenReturnModel()
+    {
+        //Arrange
+        $this->sut = app(LikeRepository::class);
+
+        $id = 2;
+
+        $questions = Like::factory()
+            ->create(['id' => $id]);
+
+        //Act
+        $actual = $this->sut->findOrFail($id);
+
+        //Assert
+        $this->assertEquals($actual->id, $id);
+    }
 }
