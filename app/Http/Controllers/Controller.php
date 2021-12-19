@@ -10,6 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller extends BaseController
@@ -20,6 +21,16 @@ class Controller extends BaseController
 
     protected function errorHandling(\Throwable $th): JsonResponse
     {
+        if ($th instanceof ValidationException) {
+            return response()
+                ->json(
+                    [
+                        'message' => $th->errors(),
+                    ],
+                    Response::HTTP_UNPROCESSABLE_ENTITY
+                );
+        }
+
         if ($th instanceof ModelNotFoundException) {
             return response()
                 ->json(

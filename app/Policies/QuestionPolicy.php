@@ -10,16 +10,6 @@ class QuestionPolicy
 {
     use HandlesAuthorization;
 
-    public function create(User $user, Question $question): bool
-    {
-        return true;
-    }
-
-    public function view(User $user, Question $question): bool
-    {
-        return true;
-    }
-
     public function update(User $user, Question $question): bool
     {
         return $user->id == $question->users_id;
