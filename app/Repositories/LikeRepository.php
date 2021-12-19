@@ -41,12 +41,12 @@ class LikeRepository
         return true;
     }
 
-    public function findOrFail(int $id): ?Like
+    public function findOrFail(int $id): Like
     {
         /**
-         * @var ?Like $model
+         * @var Like $model
          */
-        $model = $this->model::query()->find($id);
+        $model = $this->model::query()->findOrFail($id);
 
         return $model;
     }

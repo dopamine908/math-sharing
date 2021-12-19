@@ -71,4 +71,23 @@ class LikeServiceTest extends TestCase
             ->once()
             ->with($likeId);
     }
+
+    /**
+     * @test
+     */
+    public function GivenId_WhenFindOrFail_ThenCallRepository()
+    {
+        //Arrange
+        $id = 1;
+        $spyLikeRepository = $this->spy(LikeRepository::class);
+
+        $this->sut = app(LikeService::class);
+
+        //Act
+        $this->sut->findOrFail($id);
+
+        //Assert
+        $spyLikeRepository->shouldHaveReceived('findOrFail')
+            ->once();
+    }
 }

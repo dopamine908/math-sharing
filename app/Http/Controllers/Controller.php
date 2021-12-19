@@ -24,7 +24,7 @@ class Controller extends BaseController
         return response()
             ->json(
                 [
-                    'message' => $exception->errors()
+                    'message' => $exception->errors(),
                 ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );

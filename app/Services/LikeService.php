@@ -32,4 +32,9 @@ class LikeService
 
         return true;
     }
+
+    public function findOrFail(int $id): Like
+    {
+        return $this->likeRepository->findOrFail($id);
+    }
 }

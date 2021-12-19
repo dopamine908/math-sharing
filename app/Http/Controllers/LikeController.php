@@ -51,4 +51,21 @@ class LikeController extends Controller
             return $this->errorHandling($th);
         }
     }
+
+    public function destroy(Request $request, int $id): JsonResponse
+    {
+        try {
+            $like = $this->likeService->findOrFail($id);
+            $this->authorize('delete', $like);
+
+            $this->likeService->delete($id);
+
+            return response()->json(
+                [],
+                Response::HTTP_NO_CONTENT
+            );
+        } catch (\Throwable $th) {
+            return $this->errorHandling($th);
+        }
+    }
 }
