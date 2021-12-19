@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\LikeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class LikeController extends Controller
 {
@@ -19,14 +21,22 @@ class LikeController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            //code...
-            $resource = $request->input('resource');
-            $resourceId = $request->input('resource_id');
+            $request->validate(
+                [
+                    'resource' => 'required|in:questions',
+                    'resource_id' => 'required|integer',
+                ],
+                [
+                    'resource.in' => 'The :attribute field does not exist in: [questions].',
+                ]
+            );
 
-            $like = [
-                'resource' => $resource,
-                'resource_id' => $resourceId,
-            ];
+            $like = $this->likeService->create(
+                [
+                    'resource' => $request->input('resource'),
+                    'resource_id' => $request->input('resource_id'),
+                ]
+            );
 
             return response()
                 ->json(
@@ -35,9 +45,9 @@ class LikeController extends Controller
                     ],
                     Response::HTTP_CREATED
                 );
-        } catch (\Throwable $th) {
-            dump($th);
-
+        } catch (ValidationException $exception) {
+            return $this->validationExceptionHandling($exception);
+        } catch (Throwable $th) {
             return $this->errorHandling($th);
         }
     }
