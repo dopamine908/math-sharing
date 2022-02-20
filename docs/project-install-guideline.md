@@ -159,3 +159,13 @@ project_install.sh
     math-sharing_workspace_1 -> math-sharing-workspace-1
     // 底線改稱中划線
 ```
+
+---
+## workspace PHP8.0 build fail
+```
+error message: xml extension is not found
+Composer install fails because the php version is set to 8.1.1 and not version 8.0
+
+WORKSPACE_BASE_IMAGE_TAG_PREFIX=latest 修改成 
+WORKSPACE_BASE_IMAGE_TAG_PREFIX=20220115
+```
