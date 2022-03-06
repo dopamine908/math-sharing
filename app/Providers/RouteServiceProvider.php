@@ -50,6 +50,9 @@ class RouteServiceProvider extends ServiceProvider
 
             // 註冊 Api Routes（不需驗證）
             $this->registerApiPublicRoutes();
+
+            // 註冊 Api Routes（不需驗證）
+            $this->registerApiAdminRoutes();
         });
     }
 
@@ -92,6 +95,16 @@ class RouteServiceProvider extends ServiceProvider
     {
         foreach (glob(base_path('routes/auth/*.php')) as $file) {
             Route::prefix('api')
+                ->middleware(['api', JwtAuthenticationMiddleware::class])
+                ->namespace($this->namespace)
+                ->group($file);
+        }
+    }
+
+    protected function registerApiAdminRoutes()
+    {
+        foreach (glob(base_path('routes/admin/*.php')) as $file) {
+            Route::prefix('api/admin')
                 ->middleware(['api', JwtAuthenticationMiddleware::class])
                 ->namespace($this->namespace)
                 ->group($file);
